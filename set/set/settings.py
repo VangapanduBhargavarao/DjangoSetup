@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-import os
+import os,dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'set.urls'
@@ -72,7 +73,7 @@ WSGI_APPLICATION = 'set.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -80,6 +81,13 @@ DATABASES = {
         'USER':'root',
         'PASSWORD':"Bhargav@678",
     }
+}
+"""
+
+
+
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 }
 
 
@@ -124,3 +132,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+
+
+
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
